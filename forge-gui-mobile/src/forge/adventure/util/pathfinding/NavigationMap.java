@@ -5,12 +5,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 import forge.adventure.stage.MapStage;
+import forge.adventure.util.AdventureConstants;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class NavigationMap {
-    float spriteSize = 16f;
+    float spriteSize = AdventureConstants.STANDARD_TILE_SIZE;
     boolean rayCollided = false;
 
     public NavigationGraph navGraph = new NavigationGraph();
@@ -36,8 +37,8 @@ public class NavigationMap {
 //        int offsetY = 0;
 //        float width = Current.world().getWidthInTiles();
 //        float height = Current.world().getHeightInTiles();
-//        float tileHeight = 16f;
-//        float tileWidth = 16f;
+//        float tileHeight = AdventureConstants.STANDARD_TILE_SIZE;
+//        float tileWidth = AdventureConstants.STANDARD_TILE_SIZE;
 //
 //        for (int i = 0; i < width; i++) {
 //            for (int j = 0; j < height; j++) {
@@ -99,13 +100,15 @@ public class NavigationMap {
     public void initializeGeometryGraph() {
         navGraph = new NavigationGraph();
 
+        float mapTileWidth = Float.parseFloat(MapStage.getInstance().tiledMap.getProperties().get("tilewidth").toString());
+
         for (int i = 0; i < MapStage.getInstance().collisionRect.size; i++) {
             Rectangle r1 = MapStage.getInstance().collisionRect.get(i);
 
             if (r1.width < 3 && r1.height < 3)
                 continue;
-            int offsetX = -8;
-            int offsetY = 0;
+            float offsetX = -mapTileWidth / 2f;
+            float offsetY = 0;
 
             BodyDef bodyDef = new BodyDef();
             bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -180,7 +183,6 @@ public class NavigationMap {
             }
         }
     }
-
 
     public ProgressableGraphPath<NavigationVertex> findShortestPath(Float spriteSize, Vector2 origin, Vector2 destination) {
         Array<Fixture> fixtures = new Array<>();

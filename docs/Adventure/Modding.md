@@ -13,3 +13,5 @@ The following additional tools can also be very useful, or even mandatory, to ha
 **[Tiled](https://www.mapeditor.org/)**: If you want to modify or create any maps; (caves, dungeons, towns, etc.) Forge utilizes Tiled. If you want to learn more on this topic, you can find it in the [Create new Maps](https://github.com/Card-Forge/forge/wiki/Create-new-Maps) section of the Wiki.
 
 **[GIMP](https://www.gimp.org/)**: Many of the art files such as the tilesets used in Tiled, are made in GIMP. (A free graphical manipulation program, similar to Photoshop.) While not required to work in Forge's files, if you want to create your own art assets, this is the program that will be used for examples in this Wiki.
+
+For the current pixel dimensions and atlas layout, see [Adventure Asset Standards](Asset-Standards.md). New adventure content should use 64×64 pixel cells.
