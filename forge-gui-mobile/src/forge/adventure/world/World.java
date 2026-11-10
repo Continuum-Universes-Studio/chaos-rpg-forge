@@ -18,6 +18,7 @@ import forge.adventure.pointofintrest.PointOfInterest;
 import forge.adventure.pointofintrest.PointOfInterestMap;
 import forge.adventure.scene.Scene;
 import forge.adventure.stage.WorldStage;
+import forge.adventure.util.AdventureConstants;
 import forge.adventure.util.Config;
 import forge.adventure.util.Paths;
 import forge.adventure.util.SaveFileContent;
@@ -87,6 +88,9 @@ public class World implements Disposable, SaveFileContent {
         FileHandle handle = Config.instance().getFile(Paths.WORLD);
         String rawJson = handle.readString();
         this.data = (new Json()).fromJson(WorldData.class, rawJson);
+        // WorldData from older planes may omit tileSize. Keep those planes
+        // loadable while making 64px the default for new content.
+        data.tileSize = AdventureConstants.normalizeTileSize(data.tileSize);
         biomeTexture = new BiomeTexture[data.GetBiomes().size() + 1];
 
         int biomeIndex = 0;

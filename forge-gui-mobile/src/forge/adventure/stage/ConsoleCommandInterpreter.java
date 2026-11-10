@@ -162,7 +162,8 @@ public class ConsoleCommandInterpreter {
             Forge.advFreezePlayerControls = true;
             FThreads.invokeInEdtNowOrLater(() -> Forge.setTransitionScreen(new CoverScreen(() -> {
                 Forge.advFreezePlayerControls = false;
-                WorldStage.getInstance().setPosition(new Vector2(poi.getPosition().x - 16f, poi.getPosition().y + 16f));
+                float tileSize = Current.world().getTileSize();
+                WorldStage.getInstance().setPosition(new Vector2(poi.getPosition().x - tileSize, poi.getPosition().y + tileSize));
                 WorldStage.getInstance().loadPOI(poi);
                 Forge.clearTransitionScreen();
             }, ScreenUtil.getInstance().takeScreenshot())));

@@ -20,6 +20,7 @@ import forge.adventure.data.EffectData;
 import forge.adventure.data.EnemyData;
 import forge.adventure.data.RewardData;
 import forge.adventure.player.AdventurePlayer;
+import forge.adventure.stage.MapStage;
 import forge.adventure.util.Config;
 import forge.adventure.util.Current;
 import forge.adventure.util.MapDialog;
@@ -626,13 +627,22 @@ public class EnemySprite extends CharacterSprite implements Steerable<Vector2> {
         if(dialog != null && dialog.canShow()){ //Draw a talk icon on top.
             Texture T = Current.world().getGlobalTexture();
             TextureRegion TR = new TextureRegion(T, 0, 0, 16, 16);
-            batch.draw(TR, getX(), getY() + 16, 16, 16);
+            float markerSize = adventureTileSize();
+            batch.draw(TR, getX(), getY() + markerSize, markerSize, markerSize);
         }
         if(effect != null){ //Draw a crown icon on top.
             Texture T = Current.world().getGlobalTexture();
             TextureRegion TR = new TextureRegion(T, 16, 0, 16, 16);
-            batch.draw(TR, getX(), getY() + 16, 16*getScaleX(), 16*getScaleY());
+            float markerSize = adventureTileSize();
+            batch.draw(TR, getX(), getY() + markerSize, markerSize * getScaleX(), markerSize * getScaleY());
         }
+    }
+
+    private float adventureTileSize() {
+        if (MapStage.getInstance().isInMap()) {
+            return MapStage.getInstance().getMapTileSize();
+        }
+        return Current.world().getTileSize();
     }
 
     public float speed() {

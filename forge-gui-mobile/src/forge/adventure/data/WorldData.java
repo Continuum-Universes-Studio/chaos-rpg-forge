@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.SerializationException;
+import forge.adventure.util.AdventureConstants;
 import forge.adventure.util.Config;
 import forge.adventure.util.Paths;
 import forge.adventure.world.BiomeSprites;
@@ -24,7 +25,11 @@ public class WorldData implements Serializable {
     public float playerStartPosX;
     public float playerStartPosY;
     public float noiseZoomBiome;
-    public int tileSize;
+    /**
+     * Pixel size of one generated-world tile. New world files use 64; zero is
+     * accepted when loading older/incomplete files and normalized by World.
+     */
+    public int tileSize = AdventureConstants.STANDARD_TILE_SIZE;
     public int miniMapTileSize;
     public BiomeData roadTileset;
     public String biomesSprites;

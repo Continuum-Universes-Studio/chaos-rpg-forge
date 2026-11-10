@@ -3,6 +3,7 @@ package forge.adventure.editor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
+import forge.adventure.util.AdventureConstants;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,7 +20,7 @@ import static java.awt.Image.SCALE_FAST;
  */
 public class SwingAtlas {
 
-    int imageSize=32;
+    int imageSize=AdventureConstants.STANDARD_TILE_SIZE;
     HashMap<String, ArrayList<ImageIcon>> images=new  HashMap<>();
     public HashMap<String, ArrayList<ImageIcon>> getImages()
     {
@@ -51,7 +52,7 @@ public class SwingAtlas {
     }
     public  SwingAtlas(FileHandle path)
     {
-        this(path,32);
+        this(path, AdventureConstants.STANDARD_TILE_SIZE);
     }
 
     private ImageIcon spriteToImage(TextureAtlas.TextureAtlasData.Region sprite) throws IOException {

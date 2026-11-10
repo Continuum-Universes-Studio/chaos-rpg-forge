@@ -81,10 +81,10 @@ public class MapStage extends GameStage {
     public Map<Integer, Vector2> waypoints = new HashMap<>();
 
     //todo: add additional graphs for other sprite sizes if desired. Current implementation
-    // allows for mobs of any size to fit into 16x16 tiles for navigation purposes
+    // allows for mobs of any size to fit into the map's tile grid for navigation purposes.
     float collisionWidthMod = 0.4f;
-    float defaultSpriteSize = 16f;
-    float navMapSize =  defaultSpriteSize * collisionWidthMod;
+    private float defaultSpriteSize = AdventureConstants.STANDARD_TILE_SIZE;
+    private float navMapSize = defaultSpriteSize * collisionWidthMod;
     private final Vector2 AIVector = new Vector2();
     private final Vector2 playerPosReg = new Vector2();
     private final NavigationVertex navigationVertex = new NavigationVertex(new Vector2());
@@ -248,6 +248,10 @@ public class MapStage extends GameStage {
         float height = Float.parseFloat(map.getProperties().get("height").toString());
         float tileHeight = Float.parseFloat(map.getProperties().get("tileheight").toString());
         float tileWidth = Float.parseFloat(map.getProperties().get("tilewidth").toString());
+        // Tiled maps carry their own dimensions. This keeps legacy 16px maps
+        // working while making 64px the standard for newly authored maps.
+        defaultSpriteSize = tileWidth > 0 ? tileWidth : AdventureConstants.STANDARD_TILE_SIZE;
+        navMapSize = defaultSpriteSize * collisionWidthMod;
         setBounds(width * tileWidth, height * tileHeight);
         //collision = new Array[(int) width][(int) height];
 
@@ -1189,6 +1193,11 @@ public class MapStage extends GameStage {
 
     public boolean isInMap() {
         return isInMap;
+    }
+
+    /** Returns the pixel size of the currently loaded Tiled map's grid cell. */
+    public float getMapTileSize() {
+        return defaultSpriteSize;
     }
 
     public String getBattleBackground() {

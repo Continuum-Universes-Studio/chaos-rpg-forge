@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
 import forge.adventure.data.BiomeData;
 import forge.adventure.data.WorldData;
+import forge.adventure.util.AdventureConstants;
 import forge.adventure.util.Config;
 import forge.adventure.util.Paths;
 
@@ -25,7 +26,7 @@ public class WorldEditor extends JComponent {
     FloatSpinner playerStartPosX= new FloatSpinner( 0, 1, .1f);
     FloatSpinner playerStartPosY= new FloatSpinner(0, 1, .1f);
     FloatSpinner noiseZoomBiome= new FloatSpinner( 0, 1000f, 1f);
-    IntSpinner tileSize= new IntSpinner( 0, 100000, 1);
+    IntSpinner tileSize= new IntSpinner( AdventureConstants.STANDARD_TILE_SIZE, 100000, 1);
 
     JTextField  biomesSprites       =   new JTextField();
     FloatSpinner maxRoadDistance        =   new FloatSpinner( 0, 100000f, 1f);
@@ -92,7 +93,7 @@ public class WorldEditor extends JComponent {
         worldPanel.add("playerStartPosX:",playerStartPosX);
         worldPanel.add("playerStartPosY:",playerStartPosY);
         worldPanel.add("noiseZoomBiome:",noiseZoomBiome);
-        worldPanel.add("tileSize:",tileSize);
+        worldPanel.add("tileSize (px):",tileSize);
         worldPanel.add("biomesSprites:",biomesSprites);
         worldPanel.add("maxRoadDistance:",maxRoadDistance);
         worldPanel.add("biomesNames:",biomesNames);
@@ -176,7 +177,7 @@ public class WorldEditor extends JComponent {
         currentData.playerStartPosX=playerStartPosX.floatValue();
         currentData.playerStartPosY=playerStartPosY.floatValue();
         currentData.noiseZoomBiome=noiseZoomBiome.floatValue();
-        currentData.tileSize=tileSize.intValue();
+        currentData.tileSize=AdventureConstants.normalizeTileSize(tileSize.intValue());
         currentData.biomesSprites=biomesSprites.getText();
         currentData.maxRoadDistance=maxRoadDistance.floatValue();
         currentData.biomesNames=  (biomesNames.getList());
@@ -207,7 +208,7 @@ public class WorldEditor extends JComponent {
         playerStartPosX.setValue(currentData.playerStartPosX);
         playerStartPosY.setValue(currentData.playerStartPosY);
         noiseZoomBiome.setValue(currentData.noiseZoomBiome);
-        tileSize.setValue(currentData.tileSize);
+        tileSize.setValue(AdventureConstants.normalizeTileSize(currentData.tileSize));
         biomesSprites.setText(currentData.biomesSprites);
         maxRoadDistance.setValue(currentData.maxRoadDistance);
         biomesNames.setText(currentData.biomesNames);

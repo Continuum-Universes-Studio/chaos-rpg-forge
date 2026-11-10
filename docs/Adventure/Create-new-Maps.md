@@ -1,4 +1,4 @@
-Maps in the adventure mode are created with the tool Tiled
+Maps in the adventure mode are created with the tool Tiled. New maps and tilesets should use 64×64 pixel cells; see [Adventure Asset Standards](Asset-Standards.md) for the complete layout and compatibility rules.
  [](https://www.mapeditor.org/)
 
 Open the tiled-project under `<adventure>/maps/main.tiled-project`  

@@ -719,7 +719,8 @@ public abstract class GameStage extends Stage {
                 showImageDialog(Current.generateDefeatMessage(true), getDefeatBadge(),
                     () -> FThreads.invokeInEdtNowOrLater(() -> Forge.setTransitionScreen(new CoverScreen(() -> {
                         Forge.advFreezePlayerControls = false;
-                        WorldStage.getInstance().setPosition(new Vector2(poi.getPosition().x - 16f, poi.getPosition().y + 16f));
+                        float tileSize = Current.world().getTileSize();
+                        WorldStage.getInstance().setPosition(new Vector2(poi.getPosition().x - tileSize, poi.getPosition().y + tileSize));
                         WorldStage.getInstance().loadPOI(poi);
                         WorldSave.getCurrentSave().autoSave();
                         Forge.clearTransitionScreen();
